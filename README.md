@@ -21,11 +21,12 @@ This project is a real-time punctuality tracking system designed for students an
 
 ## Project Structure
 Automated_Punctuality_Analysis_System/
-├── templates/ - HTML templates for dashboard
-├── utils/ - Python utilities for face recognition
-├── server.py - Main backend server using Flask
-├── db.sqlite3 - SQLite database file
-├── README.md - Project documentation
+  ├─ templates/       # HTML templates for dashboard
+  ├─ utils/           # Python utilities for face recognition
+  ├─ server.py        # Main backend server using Flask
+  ├─ db.sqlite3       # SQLite database file
+  ├─ README.md        # Project documentation
+
 
 ## How It Works
 
