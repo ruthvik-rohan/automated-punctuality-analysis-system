@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Class Schedule</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
+
+  <div class="w-full max-w-xl bg-white p-6 rounded shadow">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">Set Class Schedule</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-4">
+          {% for category, message in messages %}
+            <div class="bg-green-100 text-green-700 px-4 py-2 rounded">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form action="/schedule" method="POST">
+      <label class="block font-semibold mb-1">Class Start Time</label>
+      <input type="datetime-local" name="class_start" value="{{ class_start }}" required
+             class="w-full mb-4 p-2 border border-gray-300 rounded">
+
+      <label class="block font-semibold mb-1">Class End Time</label>
+      <input type="datetime-local" name="class_end" value="{{ class_end }}" required
+             class="w-full mb-4 p-2 border border-gray-300 rounded">
+
+      <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Save Schedule</button>
+    </form>
+
+    <div class="mt-4">
+      <a href="/" class="text-blue-500 hover:underline">← Back to Upload</a>
+    </div>
+  </div>
+
+</body>
+</html>

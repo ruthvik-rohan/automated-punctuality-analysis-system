@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Monitoring</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+  <div class="max-w-6xl mx-auto bg-white p-6 rounded shadow">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold text-gray-800">Live Monitoring</h1>
+      <a href="/" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">← Home</a>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-6">
+      <!-- Live Video Feed -->
+      <div class="flex-1">
+        <h2 class="text-lg font-semibold mb-2">Live Video Feed</h2>
+        <img src="/video_feed" class="w-full rounded border">
+      </div>
+      {% if logs %}
+    <!-- render logs -->
+    {% else %}
+    <p class="text-red-500">No logs detected yet. Check if the camera is sending frames and faces are being detected.</p>
+    {% endif %}
+
+      <!-- Recent Logs -->
+      <div class="flex-1">
+        <h2 class="text-lg font-semibold mb-2">Recent Logs</h2>
+        <ul class="bg-gray-50 border rounded p-4 max-h-[400px] overflow-y-auto">
+          {% for log in logs %}
+            <li class="mb-2">
+              <span class="font-bold text-gray-700">{{ log[2] }}</span> 
+              <span class="text-sm text-gray-500">({{ log[1] }})</span><br>
+              <span class="text-blue-600">{{ log[4].capitalize() }}</span> at 
+              <span class="text-gray-600">{{ log[3] }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

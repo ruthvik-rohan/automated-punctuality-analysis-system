@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register Face</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-10">
+  <form action="/register" method="post" enctype="multipart/form-data" class="max-w-md mx-auto bg-white p-6 rounded shadow">
+    <h2 class="text-xl font-bold mb-4">Register Student/Faculty</h2>
+    <input type="text" name="person_id" placeholder="ID" required class="mb-3 w-full p-2 border rounded"><br>
+    <input type="text" name="name" placeholder="Name" required class="mb-3 w-full p-2 border rounded"><br>
+    <select name="role" class="mb-3 w-full p-2 border rounded">
+      <option value="student">Student</option>
+      <option value="faculty">Faculty</option>
+    </select><br>
+    <input type="file" name="image" accept="image/*" required class="mb-3 w-full"><br>
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Register</button>
+  </form>
+</body>
+</html>

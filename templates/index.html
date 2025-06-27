@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Attendance System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6 font-sans">
+
+  <!-- Header -->
+  <header class="max-w-6xl mx-auto bg-white p-6 rounded-xl shadow-md mb-8">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+      <h1 class="text-3xl font-bold text-gray-800">🎯 Smart Attendance System</h1>
+      <nav class="flex flex-wrap gap-3">
+        <a href="/register" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition">+ Register</a>
+        <a href="/assign_schedule" class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition">Assign Schedule</a>
+        <a href="/dashboard" class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition">Attendance</a>
+        <a href="/punctuality" class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition">Punctuality Report</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Flash Message -->
+  <div class="max-w-6xl mx-auto mb-6">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div>
+          {% for category, message in messages %}
+            <div class="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-md mb-2 shadow-sm">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <!-- Live Monitoring Section -->
+  <section class="max-w-6xl mx-auto bg-white p-6 rounded-xl shadow-md">
+    <div class="flex flex-col md:flex-row gap-6">
+      
+      <!-- Live Feed -->
+      <div class="flex-1">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">📡 Live Camera Feed</h2>
+        <img src="/video_feed" class="w-full border rounded">
+      </div>
+
+      <!-- Recent Logs -->
+      <div class="flex-1">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">📝 Recent Logs</h2>
+        {% if logs %}
+        <ul class="bg-gray-50 border rounded p-4 max-h-[400px] overflow-y-auto text-sm">
+          {% for log in logs %}
+            <li class="mb-3">
+              <span class="font-bold text-gray-800">{{ log[2] }}</span>
+              <span class="text-xs text-gray-500">({{ log[1] }})</span><br>
+              <span class="inline-block text-white px-2 py-1 rounded 
+                          {{ 'bg-green-500' if log[4] == 'entry' else 'bg-red-500' }}">
+                {{ log[4].capitalize() }}
+              </span>
+              <span class="text-gray-600 ml-2">{{ log[3] }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="text-red-500">No logs detected yet. Check if the camera is sending frames and faces are being detected.</p>
+        {% endif %}
+      </div>
+
+
+
+      <form action="/rotate" method="get" class="flex items-center gap-3 mt-6">
+        <label for="angle" class="text-sm font-semibold text-gray-700">Rotate Camera:</label>
+        <select name="angle" id="angle" class="border border-gray-300 rounded-md px-3 py-2 text-sm">
+          <option value="0">0°</option>
+          <option value="45">45°</option>
+          <option value="90">90°</option>
+          <option value="135">135°</option>
+          <option value="180">180°</option>
+        </select>
+        <button type="submit" class="bg-purple-600 text-white text-sm px-4 py-2 rounded-md hover:bg-purple-700 transition">
+          Rotate
+        </button>
+      </form>
+      
+
+
+
+    </div>
+  </section>
+
+</body>
+</html>

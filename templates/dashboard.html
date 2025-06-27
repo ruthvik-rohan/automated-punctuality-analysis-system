@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Attendance Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+  
+  <div class="max-w-5xl mx-auto bg-white rounded-lg shadow p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-2xl font-bold text-gray-800">Attendance Logs</h2>
+      <a href="/" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">← Upload Frame</a>
+    </div>
+
+    {% if logs %}
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white border">
+        <thead>
+          <tr class="bg-gray-200 text-left text-gray-700 font-semibold">
+            <th class="py-2 px-4 border-b">#</th>
+            <th class="py-2 px-4 border-b">Person ID</th>
+            <th class="py-2 px-4 border-b">Name</th>
+            <th class="py-2 px-4 border-b">Timestamp</th>
+            <th class="py-2 px-4 border-b">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in logs %}
+          <tr class="hover:bg-gray-100">
+            <td class="py-2 px-4 border-b">{{ loop.index }}</td>
+            <td class="py-2 px-4 border-b">{{ row[1] }}</td>
+            <td class="py-2 px-4 border-b">{{ row[2] }}</td>
+            <td class="py-2 px-4 border-b">{{ row[3] }}</td>
+            <td class="py-2 px-4 border-b">
+              {% if row[4] == 'entry' %}
+                <span class="text-green-600 font-medium">Entry</span>
+              {% else %}
+                <span class="text-red-600 font-medium">Exit</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <p class="text-gray-500 mt-4">No logs found.</p>
+    {% endif %}
+  </div>
+
+</body>
+</html>

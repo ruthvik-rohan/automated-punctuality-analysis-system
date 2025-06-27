@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Assign Schedule</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+
+  <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+    <h2 class="text-2xl font-bold mb-4">Assign Class Timing to Users</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-4">
+          {% for category, message in messages %}
+            <div class="bg-green-100 text-green-800 px-4 py-2 rounded">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" class="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+      <div>
+        <label class="block font-medium">Select User</label>
+        <select name="person_id" required class="w-full p-2 border rounded">
+          {% for id, name in users %}
+            <option value="{{ id }}">{{ id }} - {{ name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-medium">Class Start</label>
+        <input type="datetime-local" name="class_start" required class="w-full p-2 border rounded">
+      </div>
+
+      <div>
+        <label class="block font-medium">Class End</label>
+        <input type="datetime-local" name="class_end" required class="w-full p-2 border rounded">
+      </div>
+
+      <div class="md:col-span-3">
+        <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 mt-2">Assign Schedule</button>
+      </div>
+    </form>
+
+    <h3 class="text-xl font-semibold mb-2">Assigned Schedules</h3>
+    <table class="w-full table-auto border mt-2">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="p-2">Person ID</th>
+          <th class="p-2">Start Time</th>
+          <th class="p-2">End Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pid, name in users %}
+          <tr>
+            <td class="p-2 font-medium">{{ pid }}</td>
+            <td class="p-2">
+              {{ schedule_data[pid][0] if pid in schedule_data else "-" }}
+            </td>
+            <td class="p-2">
+              {{ schedule_data[pid][1] if pid in schedule_data else "-" }}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
